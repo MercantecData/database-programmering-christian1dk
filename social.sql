@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 07. 12 2017 kl. 07:22:31
+-- Genereringstid: 07. 12 2017 kl. 09:51:46
 -- Serverversion: 5.7.14
 -- PHP-version: 7.0.10
 
@@ -44,6 +44,27 @@ INSERT INTO `comments` (`ID`, `UserID`, `StatusID`, `Content`, `Created`, `Modif
 (2, 1, 11, 'Cras laoreet mi in dignissim posuere. Vestibulum ante ipsum primis in faucibus orci...', '2017-12-06 14:21:23', '2017-12-07 00:06:34'),
 (3, 1, 12, 'Work', '2017-12-06 20:14:49', '2017-12-06 20:14:49'),
 (5, 3, 11, 'Work', '2017-12-06 20:14:49', '2017-12-07 00:04:42');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur-dump for tabellen `friends`
+--
+
+CREATE TABLE `friends` (
+  `ID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `FriendID` int(11) NOT NULL,
+  `Created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Data dump for tabellen `friends`
+--
+
+INSERT INTO `friends` (`ID`, `UserID`, `FriendID`, `Created`, `Modified`) VALUES
+(2, 1, 3, '2017-12-07 10:44:52', '2017-12-07 10:44:52');
 
 -- --------------------------------------------------------
 
@@ -110,6 +131,12 @@ ALTER TABLE `comments`
   ADD KEY `StatusID` (`StatusID`);
 
 --
+-- Indeks for tabel `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indeks for tabel `status`
 --
 ALTER TABLE `status`
@@ -131,6 +158,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `comments`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Tilføj AUTO_INCREMENT i tabel `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Tilføj AUTO_INCREMENT i tabel `status`
 --

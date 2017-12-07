@@ -52,7 +52,7 @@ if (isset($_SESSION['bruger_info']))
             <div id="postbox">
              <div id="post">
                 <div id="name">
-                '.$dbFetchStatus['Name'].'
+                <a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
                 </div>
                 <div id="content">
                 '.$dbFetchStatus['Content'].'
@@ -95,7 +95,7 @@ if (isset($_SESSION['bruger_info']))
             echo '
                 <div id="comment">
                     <div id="name">
-                        '.$dbFetchComments['Name'].'
+                        <a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
                     </div>
                     <div id="content">
                         '.$dbFetchComments['Content'].'
