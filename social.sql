@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 07. 12 2017 kl. 09:51:46
+-- Genereringstid: 07. 12 2017 kl. 12:15:01
 -- Serverversion: 5.7.14
 -- PHP-version: 7.0.10
 
@@ -105,6 +105,7 @@ CREATE TABLE `users` (
   `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Name` varchar(255) NOT NULL,
+  `ProfilePhoto` varchar(255) NOT NULL,
   `Created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Level` int(11) NOT NULL
@@ -114,9 +115,10 @@ CREATE TABLE `users` (
 -- Data dump for tabellen `users`
 --
 
-INSERT INTO `users` (`ID`, `Username`, `Password`, `Name`, `Created`, `Modified`, `Level`) VALUES
-(1, 'Christian', '$2y$10$JOt8uuZkSU.XZIrpIC..BOE2XFmA2e4Xk/3YIuAQ9TzKGRy3GGUgy', 'Christian', '2017-12-06 10:47:27', '2017-12-06 12:11:38', 2),
-(3, 'Admin', '$2y$10$63dsR4NN96GM8e.puJDfi.tCQdlxgDOXmCkcK5E6EL98eGeZBrJNy', 'Admin', '2017-12-06 12:56:20', '2017-12-06 12:56:20', 0);
+INSERT INTO `users` (`ID`, `Username`, `Password`, `Name`, `ProfilePhoto`, `Created`, `Modified`, `Level`) VALUES
+(1, 'Christian', '$2y$10$JOt8uuZkSU.XZIrpIC..BOE2XFmA2e4Xk/3YIuAQ9TzKGRy3GGUgy', 'Christian', '3e6d188b8d710482a6bfb51a2b515c06.png', '2017-12-06 10:47:27', '2017-12-07 12:57:30', 2),
+(3, 'Admin', '$2y$10$63dsR4NN96GM8e.puJDfi.tCQdlxgDOXmCkcK5E6EL98eGeZBrJNy', 'Admin', '3e6d188b8d710482a6bfb51a2b515c06.png', '2017-12-06 12:56:20', '2017-12-07 12:57:28', 0),
+(8, 'test', '$2y$10$bihheUuRRkI.45qxr0JAS.rVNW6lx9AAild7iu5oP/xtAobfTAgka', 'Christian', '3e6d188b8d710482a6bfb51a2b515c06.png', '2017-12-07 12:29:31', '2017-12-07 12:33:02', 0);
 
 --
 -- Begrænsninger for dumpede tabeller
@@ -172,7 +174,7 @@ ALTER TABLE `status`
 -- Tilføj AUTO_INCREMENT i tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Begrænsninger for dumpede tabeller
 --

@@ -38,23 +38,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 if (isset($_SESSION['bruger_info']))
 {
-    if(isset($_GET['Person'])||isset($_GET['person']))
+    if(isset($_GET['Person']))
     {
-        if(isset($_GET['Person']))
-        {
-            $PersonID = (int)$_GET['Person'];
-        }
-        else if (isset($_GET['person']))
-        {
-            $PersonID = (int)$_GET['person'];
-        }
-
+        $PersonID = (int)$_GET['Person'];
+    }
+    else if (isset($_GET['person']))
+    {
+        $PersonID = (int)$_GET['person'];
+    }
+    else
+    {
+        $PersonID = $UserID;
+    }
+    if(isset($PersonID))
+    {
         $sqlPerson = "select * from Users WHERE ID = '".$PersonID."'";
         $sqlQueryPerson = mysqli_query($db,$sqlPerson);
         $dbFetchPerson = mysqli_fetch_array($sqlQueryPerson);
 
         echo '<div id="feedbox">';
-        echo "<h2>". $dbFetchPerson['Name']."</h2>";
+        echo "<h2><img src='uploads/photos/profile/" . $dbFetchPerson["ProfilePhoto"] . "' width='50px' height='50px'>&nbsp;". $dbFetchPerson['Name']."</h2>";
 
         if ($PersonID != $UserID)
         {
@@ -92,7 +95,7 @@ if (isset($_SESSION['bruger_info']))
         ";
 
         //$sqlStatus = "select * from Status ORDER BY ID desc";
-        $sqlStatus = "select Status.ID, Status.UserID, Status.Content, Users.Name from Status INNER JOIN Users ON Status.UserID = Users.ID where UserID = '".$PersonID."' ORDER BY Status.ID desc";
+        $sqlStatus = "select Status.ID, Status.UserID, Status.Content, Users.Name, Users.ProfilePhoto from Status INNER JOIN Users ON Status.UserID = Users.ID where UserID = '".$PersonID."' ORDER BY Status.ID desc";
         $sqlQueryStatus = mysqli_query($db,$sqlStatus);
         while($dbFetchStatus = mysqli_fetch_array($sqlQueryStatus))
         {
@@ -100,7 +103,7 @@ if (isset($_SESSION['bruger_info']))
                 <div id="postbox">
                 <div id="post">
                     <div id="name">
-                    '.$dbFetchStatus['Name'].'
+                    <img src="uploads/photos/profile/' . $dbFetchStatus["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
                     </div>
                     <div id="content">
                     '.$dbFetchStatus['Content'].'
@@ -135,15 +138,16 @@ if (isset($_SESSION['bruger_info']))
                 </div>
             </form>
             ";
-            $sqlComments = "select Comments.ID, Comments.Content, Comments.StatusID, Comments.UserID, Users.Name from Comments INNER JOIN Users ON Comments.UserID = Users.ID WHERE StatusID = ".$dbFetchStatus['ID']." ORDER BY Comments.ID asc";
+            $sqlComments = "select Comments.ID, Comments.Content, Comments.StatusID, Comments.UserID, Users.Name, Users.ProfilePhoto from Comments INNER JOIN Users ON Comments.UserID = Users.ID WHERE StatusID = ".$dbFetchStatus['ID']." ORDER BY Comments.ID asc";
             $sqlQueryComments = mysqli_query($db,$sqlComments);
             while($dbFetchComments = mysqli_fetch_array($sqlQueryComments))
             {
 
                 echo '
+                    <hr>
                     <div id="comment">
                         <div id="name">
-                            '.$dbFetchComments['Name'].'
+                        <img src="uploads/photos/profile/' . $dbFetchComments["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
                         </div>
                         <div id="content">
                             '.$dbFetchComments['Content'].'
@@ -152,96 +156,6 @@ if (isset($_SESSION['bruger_info']))
                 ';
 
                 if($dbFetchComments['UserID'] == $PersonID)
-                {
-                    echo '<div id="commentbuttonbox">';
-                    echo "
-                    <button><a href='./Edit.php?Comment=".$dbFetchComments['ID']."' class='editbtn'>Edit</a></button> 
-            
-                    <button><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?');\" 
-                    href='./delete.php?post=".$dbFetchComments['ID']."' class='editbtn'>Delete</a></button>
-                    ";
-
-                    echo '</div>';
-                }
-
-            }
-
-            echo "</div></div><br>";
-        }
-    }
-    else
-    {
-        echo '<div id="feedbox">';
-        echo "<h2>". $Name."</h2>";
-
-        echo "
-            <form method='post'>
-                <textarea name='post' placeholder='Write your post here...'></textarea>
-                <input class='button' type='submit' name='posting' value='Post'>   
-            </form>
-        ";
-
-        //$sqlStatus = "select * from Status ORDER BY ID desc";
-        $sqlStatus = "select Status.ID, Status.UserID, Status.Content, Users.Name from Status INNER JOIN Users ON Status.UserID = Users.ID where UserID = '".$UserID."' ORDER BY Status.ID desc";
-        $sqlQueryStatus = mysqli_query($db,$sqlStatus);
-        while($dbFetchStatus = mysqli_fetch_array($sqlQueryStatus))
-        {
-            echo '
-                <div id="postbox">
-                <div id="post">
-                    <div id="name">
-                    '.$dbFetchStatus['Name'].'
-                    </div>
-                    <div id="content">
-                    '.$dbFetchStatus['Content'].'
-                    </div>
-            ';
-
-            if($dbFetchStatus['UserID'] == $UserID)
-            {
-                echo '<div id="buttonbox">';
-                echo "
-                <button><a href='./Edit.php?Status=".$dbFetchStatus['ID']."' class='editbtn'>Edit</a></button> 
-        
-                <button><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?');\" 
-                href='./delete.php?post=".$dbFetchStatus['ID']."' class='editbtn'>Delete</a></button>
-                ";
-
-                echo '</div>';
-            }
-            echo '
-                </div>
-            </div>
-            <div id="commentbox">
-                <div id="comment">
-            ';
-
-            echo "
-            <form method='post'>
-                <input type='hidden' name='StatusID' value='".$dbFetchStatus['ID']."'>
-                <textarea name='comment' placeholder='Write your comment here...'></textarea>
-                <div id='buttonbox'>
-                <input class='button' type='submit' name='commenting' value='Post'> 
-                </div>
-            </form>
-            ";
-            $sqlComments = "select Comments.ID, Comments.Content, Comments.StatusID, Comments.UserID, Users.Name from Comments INNER JOIN Users ON Comments.UserID = Users.ID WHERE StatusID = ".$dbFetchStatus['ID']." ORDER BY Comments.ID asc";
-            $sqlQueryComments = mysqli_query($db,$sqlComments);
-            while($dbFetchComments = mysqli_fetch_array($sqlQueryComments))
-            {
-
-                echo '
-                    <div id="comment">
-                        <div id="name">
-                            '.$dbFetchComments['Name'].'
-                        </div>
-                        <div id="content">
-                            '.$dbFetchComments['Content'].'
-                        </div>
-                    </div>
-                ';
-
-                if($dbFetchComments['UserID'] == $UserID)
                 {
                     echo '<div id="commentbuttonbox">';
                     echo "

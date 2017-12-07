@@ -44,7 +44,7 @@ if (isset($_SESSION['bruger_info']))
     ";
 
     //$sqlStatus = "select * from Status ORDER BY ID desc";
-    $sqlStatus = "select Status.ID, Status.UserID, Status.Content, Users.Name from Status INNER JOIN Users ON Status.UserID = Users.ID ORDER BY Status.ID desc";
+    $sqlStatus = "select Status.ID, Status.UserID, Status.Content, Users.Name, Users.ProfilePhoto from Status INNER JOIN Users ON Status.UserID = Users.ID ORDER BY Status.ID desc";
     $sqlQueryStatus = mysqli_query($db,$sqlStatus);
     while($dbFetchStatus = mysqli_fetch_array($sqlQueryStatus))
     {
@@ -52,7 +52,7 @@ if (isset($_SESSION['bruger_info']))
             <div id="postbox">
              <div id="post">
                 <div id="name">
-                <a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
+                <img src="uploads/photos/profile/' . $dbFetchStatus["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
                 </div>
                 <div id="content">
                 '.$dbFetchStatus['Content'].'
@@ -87,15 +87,16 @@ if (isset($_SESSION['bruger_info']))
             </div>
         </form>
         ";
-        $sqlComments = "select Comments.ID, Comments.Content, Comments.StatusID, Comments.UserID, Users.Name from Comments INNER JOIN Users ON Comments.UserID = Users.ID WHERE StatusID = ".$dbFetchStatus['ID']." ORDER BY Comments.ID asc";
+        $sqlComments = "select Comments.ID, Comments.Content, Comments.StatusID, Comments.UserID, Users.Name, Users.ProfilePhoto from Comments INNER JOIN Users ON Comments.UserID = Users.ID WHERE StatusID = ".$dbFetchStatus['ID']." ORDER BY Comments.ID asc";
         $sqlQueryComments = mysqli_query($db,$sqlComments);
         while($dbFetchComments = mysqli_fetch_array($sqlQueryComments))
         {
 
             echo '
+                <hr>
                 <div id="comment">
                     <div id="name">
-                        <a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
+                    <img src="uploads/photos/profile/' . $dbFetchComments["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
                     </div>
                     <div id="content">
                         '.$dbFetchComments['Content'].'
