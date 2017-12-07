@@ -1,5 +1,6 @@
 body{
     background: #e9ebee;
+    overflow-y:scroll;
 }
 textarea{
     width:100%;
@@ -12,7 +13,69 @@ hr{
     margin: 50px 0px 0px 0px;
 }
 
+#ProfileName {
+    padding: 50px 0px 10px 20px;
+    font-size: 30px;
+    font-weight: bold;
+    float: left;
+}
 
+#profile-pic-box {
+    padding: 5px 0px 0px 5px;
+    border-radius: 5%;
+    background-color: #fff;
+    height: 105px;
+    width: 105px;
+}
+
+.profile-pic {
+    margin: 0px 0px 15px 0px;
+    border-radius: 0%;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    float: left;
+}
+
+.profile-pic:hover {
+    background-color: rgba(0,0,0,.5);
+    z-index: 10000;
+    color: #fff;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+.profile-pic span {
+    margin: -100px 0px 10px 0px;
+    display: inline-block;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
+}
+
+.small-profile-pic {
+    margin: 0px 0px 10px 0px;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    float: left;
+}
+
+/*Feed*/
 #feedbox {
     margin: auto;
     width: 500px;  
@@ -43,6 +106,7 @@ hr{
     font-weight: bold;
 }
 #content {
+    padding: 10px 0px 0px 0px;
 }
 #buttonbox{
     padding: 10px 0px 10px 0px; 

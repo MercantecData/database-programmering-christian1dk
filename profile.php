@@ -57,7 +57,17 @@ if (isset($_SESSION['bruger_info']))
         $dbFetchPerson = mysqli_fetch_array($sqlQueryPerson);
 
         echo '<div id="feedbox">';
-        echo "<h2><img src='uploads/photos/profile/" . $dbFetchPerson["ProfilePhoto"] . "' width='50px' height='50px'>&nbsp;". $dbFetchPerson['Name']."</h2>";
+        echo '
+        <a href="#" class="profile-pic">
+        <div id="profile-pic-box">
+        <div class="profile-pic" style="background-image: url(//localhost/social/uploads/photos/profile/' . $dbFetchPerson['ProfilePhoto'] . ')" >
+      
+            <span class="glyphicon glyphicon-camera"></span>
+            <span>Change Image</span>
+      
+        </div></div>
+      </a>&nbsp;<div id="ProfileName">'. $dbFetchPerson['Name'].'</div>
+        ';
 
         if ($PersonID != $UserID)
         {
@@ -103,7 +113,8 @@ if (isset($_SESSION['bruger_info']))
                 <div id="postbox">
                 <div id="post">
                     <div id="name">
-                    <img src="uploads/photos/profile/' . $dbFetchStatus["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
+                    <div class="small-profile-pic" style="background-image: url(//localhost/social/uploads/photos/profile/' . $dbFetchStatus['ProfilePhoto'] . ')" >
+                    </div>&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
                     </div>
                     <div id="content">
                     '.$dbFetchStatus['Content'].'
@@ -147,7 +158,8 @@ if (isset($_SESSION['bruger_info']))
                     <hr>
                     <div id="comment">
                         <div id="name">
-                        <img src="uploads/photos/profile/' . $dbFetchComments["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
+                        <div class="small-profile-pic" style="background-image: url(//localhost/social/uploads/photos/profile/' . $dbFetchComments['ProfilePhoto'] . ')" >
+                        </div>&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
                         </div>
                         <div id="content">
                             '.$dbFetchComments['Content'].'

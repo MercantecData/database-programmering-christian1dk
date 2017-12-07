@@ -52,7 +52,8 @@ if (isset($_SESSION['bruger_info']))
             <div id="postbox">
              <div id="post">
                 <div id="name">
-                <img src="uploads/photos/profile/' . $dbFetchStatus["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
+                <div class="small-profile-pic" style="background-image: url(//localhost/social/uploads/photos/profile/' . $dbFetchStatus['ProfilePhoto'] . ')" >
+                </div>&nbsp;<a href="./profile.php?person='.$dbFetchStatus['UserID'].'">'.$dbFetchStatus['Name'].'</a>
                 </div>
                 <div id="content">
                 '.$dbFetchStatus['Content'].'
@@ -96,7 +97,8 @@ if (isset($_SESSION['bruger_info']))
                 <hr>
                 <div id="comment">
                     <div id="name">
-                    <img src="uploads/photos/profile/' . $dbFetchComments["ProfilePhoto"] . '" width="25px" height="25px">&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
+                    <div class="small-profile-pic" style="background-image: url(//localhost/social/uploads/photos/profile/' . $dbFetchComments['ProfilePhoto'] . ')" >
+                    </div>&nbsp;<a href="./profile.php?person='.$dbFetchComments['UserID'].'">'.$dbFetchComments['Name'].'</a>
                     </div>
                     <div id="content">
                         '.$dbFetchComments['Content'].'
