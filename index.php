@@ -9,7 +9,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!empty($_POST['posting']))
     {
       $Post = mysqli_real_escape_string($db,$_POST['post']);
-      $sql = "INSERT INTO Status (Content, UserID) VALUES ('$Post', '$User')";
+      $PlaceID = 1;
+      $sql = "INSERT INTO Status (Content, UserID, PlaceID) VALUES ('$Post', '$User', '$PlaceID')";
       $result = mysqli_query($db,$sql);
       //header('Location: ./index.php');
     }
@@ -30,6 +31,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div id="Header">
+    <div id ="Menu">
+<?php
+    include('menu.php');
+?>
+    </div>
+</div>
+<div id="Page">
+
 <?php
 if (isset($_SESSION['bruger_info']))
 {
@@ -131,5 +141,6 @@ else
     exit();
 }
 ?>
+</div>
 </body>
 </html>

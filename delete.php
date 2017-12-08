@@ -38,7 +38,7 @@ if(isset($_GET['post']))
 }
 if(isset($_GET['comment']))
 {
-$CommentID = $_GET['comment'];
+    $CommentID = $_GET['comment'];
 }
 	
 	

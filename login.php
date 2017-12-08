@@ -25,18 +25,19 @@ include('./config.php');
 <!--<header style="font-size: 30px; margin-left: 55px;"><b>Login</b></header> -->
 
 <body>
+<div id="Header">
+    <div id ="Menu">
+<?php
+    include('menu.php');
+?>
+    </div>
+</div>
 <!-- background-color: darkgrey; border-radius: 5px-->
 <?php
   ob_start();
 if(!isset($_SESSION['bruger_info']['ID'])){
 		echo "
-          <div class='feedbox'>
-    <div class='row' id='header'>
-      <div class='one-third column u-pull-left'><a href='om.php'><p class='headbtn'>Opret Bruger</p></a></div>
-      <div class='one-third column'>
-        <div id='logobox'><a href='./index.php'><p id='logo'>Home</p></a></div>
-      </div>
-    </div>
+    <div class='Page'>
 	  <div name='login_form' style='margin-top: 90px; text-align: center;'>
 		<form class='login-form' method='post' style='padding: 12px 20px; border-radius: 5px; width: 450px; margin: 0 auto;'>
 		  <h1 class='login-title' style='text-align:center;'><b>Log ind</b></h1>
